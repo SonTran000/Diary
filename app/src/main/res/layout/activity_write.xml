@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="?attr/actionBarSize">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roung_bg"
+        android:text="OK"
+        android:id="@+id/post"
+        android:layout_alignParentRight="true"
+        android:textSize="10sp"
+        android:backgroundTint="#EE8A8A"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roung_bg"
+        android:text="Back"
+        android:textSize="10sp"
+        android:backgroundTint="#EE8A8A"
+        android:id="@+id/goBack"
+        android:layout_alignParentLeft="true"/>
+<EditText
+    android:layout_below="@id/post"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/roung_bg"
+    android:id="@+id/in_title"
+    android:textSize="20sp"
+    android:backgroundTint="#EE8A8A"
+    android:hint="Title"
+    android:layout_marginTop="45dp"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"/>
+
+    <EditText
+        android:id="@+id/in_content"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/in_title"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/roung_bg"
+        android:backgroundTint="#EE8A8A"
+        android:hint="Content"
+
+        android:textSize="20sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_navigation" />
+    <FrameLayout
+        android:layout_width="350dp"
+        android:layout_height="500dp"
+        android:layout_above="@+id/nav_view"
+        android:layout_marginBottom="70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/frag_container"
+        android:background="@drawable/roung_bg"
+        android:layout_centerInParent="true"
+        android:visibility="invisible">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/closeAll"
+                android:text="X"
+                android:textSize="20dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/roung_bg"/>
+            <DatePicker
+                android:layout_below="@+id/closeAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/getDate"
+                android:layout_centerInParent="true"
+                android:visibility="invisible"/>
+            <TimePicker
+                android:layout_below="@+id/closeAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/getTime"
+                android:layout_centerInParent="true"
+                android:visibility="invisible"/>
+            <com.flask.colorpicker.ColorPickerView
+                android:layout_below="@+id/closeAll"
+                android:id="@+id/getColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:alphaSlider="true"
+                app:lightnessSlider="true"
+                app:wheelType="CIRCLE"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+
+    </FrameLayout>
+
+
+
+</RelativeLayout>

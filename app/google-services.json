@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "839074401143",
+    "firebase_url": "https://amazingdiary-94eef.firebaseio.com",
+    "project_id": "amazingdiary-94eef",
+    "storage_bucket": "amazingdiary-94eef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839074401143:android:17d8337d8c84239fe2ef72",
+        "android_client_info": {
+          "package_name": "com.example.diary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839074401143-7hfji7gvtf7ta4ttjt1epcqf3uearp9o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.diary",
+            "certificate_hash": "8594f7aaa0ad42c1c87c4c5d2e6a1b2c5999b519"
+          }
+        },
+        {
+          "client_id": "839074401143-mrk05p8bcoq3i31ctovtfgf1vgbn9mbr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcxhIuc02Hz17m6zo-AxDouyfk06TSe4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "839074401143-mrk05p8bcoq3i31ctovtfgf1vgbn9mbr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
