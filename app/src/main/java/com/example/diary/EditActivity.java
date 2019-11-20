@@ -136,8 +136,7 @@ public class EditActivity extends AppCompatActivity {
         //String g=d.getTime();
         FirebaseAuth mAuth= FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        String uID="QGmjBABMSPNJ6oJycvGyfzWhl6R2";
-        //user.getUid();
+        String uID=user.getUid();
 
         if(title.getText()!=null
                 && content.getText()!=null
