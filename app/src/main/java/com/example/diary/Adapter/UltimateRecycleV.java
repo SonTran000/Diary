@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.example.diary.R;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.ramotion.foldingcell.FoldingCell;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -112,11 +114,20 @@ public class UltimateRecycleV extends RecyclerView.Adapter {
             viewHolder.i2.setText(String.valueOf(items.get(position).getTitle()));
             viewHolder.i5.setText(String.valueOf(items.get(position).getTitle()));
             String time=Daynum(items.get(position).getTime());
+
             int d = Integer.parseInt(time.substring(0,1));
             Date today =new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy kk:mm");
             String td = formatter.format(today).substring(0,1);
-            viewHolder.i4.setText(Integer.toString(Integer.parseInt(td)-d)+" days ago! by "+userName);
+            Date diaryTime=null;
+            try {
+            diaryTime=formatter.parse(time);
+            } catch (ParseException e) {
+                Log.e("TEST", "Exception", e);
+            }
+            long diff = today.getTime() - diaryTime.getTime();
+
+            viewHolder.i4.setText(diff/ 1000 / 60 / 60 / 24+" days ago! by "+userName);
             viewHolder.i3.setText(time.substring(11));
             viewHolder.i6.setText(time.substring(11));
             viewHolder.FCell.setBackgroundColor(Color.parseColor(items.get(position).getColor()));

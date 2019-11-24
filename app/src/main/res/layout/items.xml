@@ -36,6 +36,7 @@
             android:id="@+id/cell_content_view"
             android:layout_width="match_parent"
             android:layout_height="400dp"
+
             android:visibility="gone">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -63,6 +64,7 @@
                     android:layout_height="300dp"
                     android:layout_below="@id/card_item2_2"
                     android:id="@+id/card_item1"
+                    android:background="@drawable/roung_bg"
                     android:textSize="25dp"
                     android:textAlignment="center"
                     android:gravity="center"
@@ -74,7 +76,8 @@
         <FrameLayout
             android:id="@+id/cell_title_view"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="100dp"
+            >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

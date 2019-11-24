@@ -5,30 +5,101 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
-<com.nightonke.boommenu.BoomMenuButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/userButton"
-    app:bmb_buttonEnum="simpleCircle"
-    app:bmb_boomEnum="boomHorizontalThrow_1"
-    app:bmb_buttonPlaceAlignmentEnum="buttonPlaceAlignment_center"
-    app:bmb_piecePlaceEnum="piecePlace_dot_3_3"
-    app:bmb_buttonPlaceEnum="buttonPlace_sc_3_3"/>
+
 <androidx.recyclerview.widget.RecyclerView
+    android:layout_marginTop="15dp"
+    android:layout_centerInParent="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/Recycle_view"
     app:recyclerviewScrollbars="vertical"
-    android:layout_below="@+id/userButton"/>
+    android:layout_below="@id/mainProfile"/>
+    <FrameLayout
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:id="@+id/HomeContainer">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/userInfoContainer"
+            android:background="@drawable/roung_bg">
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/closeB"
+                android:text="X"
+                android:background="@drawable/roung_bg"
+                android:layout_alignParentRight="true"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_border_color_black_24dp"
-        app:backgroundTint="#990BA3"
+            <ImageView
+                android:id="@+id/profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                app:srcCompat="@android:drawable/btn_star_big_on" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile"
+                android:layout_marginTop="15dp"
+                android:textSize="25dp"
+                android:id="@+id/tv1"
+                android:text="Username:"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@id/tv1"
+                android:layout_marginTop="15dp"
+                android:id="@+id/currentUsername"
+                android:background="@drawable/roung_bg"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:textSize="25dp"
+                android:id="@+id/tv2"
+                android:layout_below="@id/currentUsername"
+                android:text="Email:"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@id/tv2"
+                android:layout_marginTop="15dp"
+                android:id="@+id/currentEmail"
+                android:background="@drawable/roung_bg"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>
+    </FrameLayout>
+    <ImageView
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@android:drawable/btn_star_big_on"
+        android:id="@+id/mainProfile"/>
+    <com.nightonke.boommenu.BoomMenuButton
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginRight="15dp"
-        android:id="@+id/add_button"/>
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userButton"
+        app:bmb_buttonEnum="textOutsideCircle"
+        app:bmb_boomEnum="boomHorizontalThrow_1"
+        app:bmb_buttonPlaceAlignmentEnum="buttonPlaceAlignment_center"
+        app:bmb_piecePlaceEnum="piecePlace_dot_3_3"
+        app:bmb_buttonPlaceEnum="buttonPlace_sc_3_3"/>
 </RelativeLayout>

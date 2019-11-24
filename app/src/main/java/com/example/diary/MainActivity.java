@@ -173,8 +173,8 @@ public class MainActivity extends AppCompatActivity {
             FirebaseUser user = mAuth.getCurrentUser();
             updateUI(user);
         }
-        Intent intent = new Intent(MainActivity.this, History.class);
-        startActivity(intent);
+        //Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        //startActivity(intent);
     }
 
     private void loginUser() {
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            //updateUI(null);
                         }
 
                         // ...
@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
 
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            //updateUI(null);
                         }
 
                     }
@@ -323,6 +323,8 @@ public class MainActivity extends AppCompatActivity {
             btn_logout.setVisibility(View.INVISIBLE);
             btn_login.setVisibility(View.VISIBLE);
         }*/
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
     }
 
     private void Logout() {
