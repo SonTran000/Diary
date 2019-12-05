@@ -90,6 +90,7 @@ public class HistoryRecycleView extends RecyclerView.Adapter{
             Date today =new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy kk:mm");
             //String td = formatter.format(today).substring(0,1);
+            //
             viewHolder.i4.setText(time);
             Date diaryTime=null;
             try {
