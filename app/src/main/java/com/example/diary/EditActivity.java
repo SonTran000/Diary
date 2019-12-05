@@ -77,7 +77,7 @@ public class EditActivity extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                post();addHistory();
+                post();addHistory();finish();
             }
         });
 

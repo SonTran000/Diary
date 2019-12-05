@@ -115,10 +115,10 @@ public class UltimateRecycleV extends RecyclerView.Adapter {
             viewHolder.i5.setText(String.valueOf(items.get(position).getTitle()));
             String time=Daynum(items.get(position).getTime());
 
-            int d = Integer.parseInt(time.substring(0,1));
+            //int d = Integer.parseInt(time.substring(0,1));
             Date today =new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy kk:mm");
-            String td = formatter.format(today).substring(0,1);
+            //String td = formatter.format(today).substring(0,1);
             Date diaryTime=null;
             try {
             diaryTime=formatter.parse(time);

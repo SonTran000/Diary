@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.SimpleCircleButton;
+import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 
 import java.util.ArrayList;
@@ -40,14 +41,15 @@ public class History extends AppCompatActivity {
         boomMenuButton=findViewById(R.id.userButton);
 
         for (int i = 0; i < boomMenuButton.getPiecePlaceEnum().pieceNumber(); i++) {
-            SimpleCircleButton.Builder builder = new SimpleCircleButton.Builder()
+            TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
                     .listener(new OnBMClickListener() {
                         @Override
                         public void onBoomButtonClick(int index) {
                             // When the boom-button corresponding this builder is clicked.
+                            finish();
                             Toast.makeText(History.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
                         }
-                    }).normalImageRes(R.drawable.google_logo);
+                    }).normalImageRes(R.drawable.ic_assignment_return_black_24dp).normalText("Return");
             boomMenuButton.addBuilder(builder);
         }
 

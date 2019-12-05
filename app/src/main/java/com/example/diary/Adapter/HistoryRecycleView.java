@@ -2,6 +2,7 @@ package com.example.diary.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.diary.Model.User;
 import com.example.diary.R;
 import com.ramotion.foldingcell.FoldingCell;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,13 +86,20 @@ public class HistoryRecycleView extends RecyclerView.Adapter{
             viewHolder.i1.setText(items.get(position).getChanged());
 
             String time=Daynum(items.get(position).getTime());
-            int d = Integer.parseInt(time.substring(0,1));
+            //int d = Integer.parseInt(time.substring(0,1));
             Date today =new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy kk:mm");
-            String td = formatter.format(today).substring(0,1);
+            //String td = formatter.format(today).substring(0,1);
             viewHolder.i4.setText(time);
-            viewHolder.i2.setText(Integer.toString(Integer.parseInt(td)-d)+" days ago! by "+userName);
-            viewHolder.i5.setText(Integer.toString(Integer.parseInt(td)-d)+" days ago! by "+userName);
+            Date diaryTime=null;
+            try {
+                diaryTime=formatter.parse(time);
+            } catch (ParseException e) {
+                Log.e("TEST", "Exception", e);
+            }
+            long diff = today.getTime() - diaryTime.getTime();
+            viewHolder.i2.setText(diff/ 1000 / 60 / 60 / 24+" days ago! by "+userName);
+            viewHolder.i5.setText(diff/ 1000 / 60 / 60 / 24+" days ago! by "+userName);
             viewHolder.i3.setText(time.substring(11));
             viewHolder.i6.setText(time.substring(11));
 

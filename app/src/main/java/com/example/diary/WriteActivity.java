@@ -77,7 +77,7 @@ public class WriteActivity extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                post();
+                post();finish();
             }
         });
 
@@ -116,6 +116,38 @@ public class WriteActivity extends AppCompatActivity {
            FirebaseDatabase.getInstance().getReference().child("Diary").push().updateChildren(DiaryMap);
        }
        else Toast.makeText(this,"Thieu noi dung",Toast.LENGTH_SHORT);
+
+
+    }
+
+    private void addHistory() {
+
+
+        String GTime=date.getDayOfMonth()+"-"+date.getMonth()+"-"+date.getYear()+" "+time.getHour()+":"+time.getMinute();
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy kk:mm");
+        Date d = null;
+        try {
+            d = (Date)formatter.parse(GTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //String g=d.getTime();
+        FirebaseAuth mAuth= FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String uID=user.getUid();
+
+        if(title.getText()!=null
+                && content.getText()!=null
+                && d!=null
+                && uID!=null){
+            Map DiaryMap = new HashMap<>();
+            DiaryMap.put("time",d.getTime());
+            DiaryMap.put("changed",title.getText().toString());
+            DiaryMap.put("uID",uID);
+
+            FirebaseDatabase.getInstance().getReference().child("History").push().updateChildren(DiaryMap);
+        }
+        else Toast.makeText(this,"Thieu noi dung",Toast.LENGTH_SHORT);
 
 
     }

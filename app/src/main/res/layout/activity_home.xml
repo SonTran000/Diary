@@ -78,8 +78,56 @@
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/userResetContainer"
+            android:background="@drawable/roung_bg">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Old password"
+                android:id="@+id/reset_oldpassword"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="New password"
+                android:layout_below="@id/reset_oldpassword"
+                android:id="@+id/reset_newpassword"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="ReEnter New password"
+                android:layout_below="@id/reset_newpassword"
+                android:id="@+id/reset_Renewpassword"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OK"
+                android:id="@+id/reset_OK"
+                android:layout_marginLeft="20dp"
 
+                android:background="@drawable/roung_bg"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancle"
+                android:id="@+id/reset_Cancel"
+                android:background="@drawable/roung_bg"
+
+                android:layout_marginRight="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"/>
         </RelativeLayout>
     </FrameLayout>
     <ImageView
@@ -100,6 +148,6 @@
         app:bmb_buttonEnum="textOutsideCircle"
         app:bmb_boomEnum="boomHorizontalThrow_1"
         app:bmb_buttonPlaceAlignmentEnum="buttonPlaceAlignment_center"
-        app:bmb_piecePlaceEnum="piecePlace_dot_3_3"
-        app:bmb_buttonPlaceEnum="buttonPlace_sc_3_3"/>
+        app:bmb_piecePlaceEnum="piecePlace_dot_5_4"
+        app:bmb_buttonPlaceEnum="buttonPlace_sc_5_4"/>
 </RelativeLayout>

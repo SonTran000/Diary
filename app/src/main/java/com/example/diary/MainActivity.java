@@ -173,8 +173,8 @@ public class MainActivity extends AppCompatActivity {
             FirebaseUser user = mAuth.getCurrentUser();
             updateUI(user);
         }
-        //Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
     }
 
     private void loginUser() {
@@ -318,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
             btn_login.setVisibility(View.INVISIBLE);
         } else {
             text.setText("Firebase Login \n");
-            //Picasso.with(LoginActivity.this).load(R.drawable.ic_firebase_logo).into(image);
+            //Picasso.with(MainActivity.this).load(R.drawable.ic_firebase_logo).into(image);
             Picasso.get().load(R.drawable.firebase_logo).into(image);
             btn_logout.setVisibility(View.INVISIBLE);
             btn_login.setVisibility(View.VISIBLE);
