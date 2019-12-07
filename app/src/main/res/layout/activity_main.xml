@@ -62,20 +62,20 @@
         android:background="@drawable/roung_bg"
         android:text="Login"
         android:id="@+id/open_loginBox"
-        android:textColor="#81DAFF"
+
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"/>
+        android:layout_marginBottom="60dp"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/roung_bg"
         android:id="@+id/open_registerBox"
         android:text="Register"
-        android:textColor="#81DAFF"
+
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="60dp"
         android:layout_toRightOf="@+id/open_loginBox"/>
 
     <FrameLayout

@@ -65,7 +65,7 @@ public class HomeActivity extends AppCompatActivity {
     ImageView ava,ava1;
     EditText username,email,old,newP,Renew;
     FrameLayout container;
-    Button cancle,cancleReset,ResetOK;
+    Button cancle,cancleReset,ResetOK,resetInfo;
     RelativeLayout infoC,resetC;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,7 @@ public class HomeActivity extends AppCompatActivity {
 
         boomMenuButton=findViewById(R.id.userButton);
 
+        resetInfo=findViewById(R.id.changeInfo);
         ResetOK=findViewById(R.id.reset_OK);
         old=findViewById(R.id.reset_oldpassword);
         newP=findViewById(R.id.reset_newpassword);
@@ -86,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
         ava1=findViewById(R.id.profile);
         username=findViewById(R.id.currentUsername);
         email=findViewById(R.id.currentEmail);
-        getUserData();
+
         container= findViewById(R.id.HomeContainer);
         container.setBackgroundColor(Color.parseColor("#65DD4E"));
         infoC=findViewById(R.id.userInfoContainer);
@@ -215,7 +216,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                initItem();
+                //initItem();
+                adapter.notifyDataSetChanged();
                 // ...
             }
 
@@ -227,9 +229,30 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
         mDatabase.addValueEventListener(postListener);
+        getUserData();
+        resetInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeInfo();
+            }
+        });
 
     }
 
+    private void changeInfo() {
+
+        if (username.getText()!=null&&email.getText()!=null)
+        {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid=user.getUid();
+            Map DiaryMap = new HashMap<>();
+            DiaryMap.put("email",email.getText().toString());
+            DiaryMap.put("UserName",username.getText().toString());
+            FirebaseDatabase.getInstance().getReference().child("User").child(uid).updateChildren(DiaryMap);
+            Toast.makeText(HomeActivity.this, "Change Success!!", Toast.LENGTH_SHORT).show();
+        }
+        else Toast.makeText(HomeActivity.this, "Change failue!", Toast.LENGTH_SHORT).show();
+    }
 
 
     @Override
@@ -237,6 +260,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
         checkLogin();
         initItem();
+        //adapter.notifyDataSetChanged();
     }
 
     private void checkLogin()
@@ -273,6 +297,7 @@ public class HomeActivity extends AppCompatActivity {
             // Name, email address, and profile photo Url
             String name = user.getDisplayName();
             String mail = user.getEmail();
+
             //Uri photoUrl = user.getPhotoUrl();
 
             // Check if user's email is verified
@@ -285,7 +310,7 @@ public class HomeActivity extends AppCompatActivity {
 
             String userName="";
             for (User u:users) {
-                if(u.getId().equals(uid))
+               // if(u.getId().equals(uid))
                     userName=u.getName();
             }
 
@@ -304,7 +329,7 @@ public class HomeActivity extends AppCompatActivity {
                     String Name = profile.getDisplayName();
                     String Email = profile.getEmail();
                     Uri photoUrl = profile.getPhotoUrl();
-                    username.setText(userName);
+                    username.setText(name);
                     //username.setText("Uranus");
                     email.setText(mail);
                     if(photoUrl!=null) {
@@ -369,18 +394,28 @@ public class HomeActivity extends AppCompatActivity {
        mDatabase.child("Diary").addChildEventListener(new ChildEventListener() {
            @Override
            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+
                if(dataSnapshot.exists())
                    if(dataSnapshot.child("title").getValue()!=null
                    && dataSnapshot.child("content").getValue()!=null
                    && dataSnapshot.child("color").getValue()!=null
                    && dataSnapshot.child("time").getValue()!=null
                    && dataSnapshot.child("uID").getValue()!=null)
-                   items.add(new Item(dataSnapshot.getKey()
+                   if(!items.contains(new Item(dataSnapshot.getKey()
                            ,dataSnapshot.child("title").getValue().toString(),
                            dataSnapshot.child("content").getValue().toString(),
                            dataSnapshot.child("color").getValue().toString(),
                            dataSnapshot.child("time").getValue().toString(),
-                           dataSnapshot.child("uID").getValue().toString()));
+                           dataSnapshot.child("uID").getValue().toString())))
+                   {
+                       items.add(new Item(dataSnapshot.getKey()
+                               ,dataSnapshot.child("title").getValue().toString(),
+                               dataSnapshot.child("content").getValue().toString(),
+                               dataSnapshot.child("color").getValue().toString(),
+                               dataSnapshot.child("time").getValue().toString(),
+                               dataSnapshot.child("uID").getValue().toString()));
+                   }
                    adapter.notifyDataSetChanged();
            }
 
@@ -391,7 +426,13 @@ public class HomeActivity extends AppCompatActivity {
 
            @Override
            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+               Item item=new Item();
+               for (Item i:
+                       items) {
+                   if (i.getId().equals(dataSnapshot.getKey())) item=i;
+               }
+               items.remove(item);
+               adapter.notifyDataSetChanged();
            }
 
            @Override
@@ -404,6 +445,7 @@ public class HomeActivity extends AppCompatActivity {
 
            }
        });
+
 
         mDatabase.child("User").addChildEventListener(new ChildEventListener() {
             @Override

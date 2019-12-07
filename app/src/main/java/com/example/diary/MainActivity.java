@@ -289,7 +289,9 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("TAG", "signInWithCredential:success");
 
                             FirebaseUser user = mAuth.getCurrentUser();
-                            MainActivity.this.updateUI(user);
+                            nickNAme=user.getEmail();
+                            addToDatabase(user);
+                            updateUI(user);
                         } else {
                             progressBar.setVisibility(View.INVISIBLE);
 

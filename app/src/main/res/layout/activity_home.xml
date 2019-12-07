@@ -75,6 +75,15 @@
                 android:layout_marginTop="15dp"
                 android:id="@+id/currentEmail"
                 android:background="@drawable/roung_bg"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/changeInfo"
+                android:text="Change!!"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/roung_bg"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -88,6 +97,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:hint="Old password"
+                android:inputType="textPassword"
                 android:id="@+id/reset_oldpassword"/>
             <EditText
                 android:layout_width="match_parent"
@@ -96,6 +106,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:hint="New password"
+                android:inputType="textPassword"
                 android:layout_below="@id/reset_oldpassword"
                 android:id="@+id/reset_newpassword"/>
             <EditText
@@ -105,6 +116,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:hint="ReEnter New password"
+                android:inputType="textPassword"
                 android:layout_below="@id/reset_newpassword"
                 android:id="@+id/reset_Renewpassword"/>
             <Button
