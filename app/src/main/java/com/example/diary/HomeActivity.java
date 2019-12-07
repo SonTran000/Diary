@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,9 +46,11 @@ import com.nightonke.boommenu.BoomButtons.TextInsideCircleButton;
 import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
@@ -67,7 +72,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        initItem();
+        checkLogin();
+
+
+
         boomMenuButton=findViewById(R.id.userButton);
 
         ResetOK=findViewById(R.id.reset_OK);
@@ -109,6 +117,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
+
             TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
                     .listener(new OnBMClickListener() {
                         @Override
@@ -117,9 +126,9 @@ public class HomeActivity extends AppCompatActivity {
                             container.setVisibility(View.VISIBLE);
                             infoC.setVisibility(View.VISIBLE);
                             resetC.setVisibility(View.INVISIBLE);
-                            Toast.makeText(HomeActivity.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
+
                         }
-                    }).normalText("Profile").normalImageRes(R.drawable.ic_profile);
+                    }).normalText("Profile").normalImageRes(R.drawable.ic_profile).textSize(15);
             boomMenuButton.addBuilder(builder);
 
 
@@ -129,10 +138,30 @@ public class HomeActivity extends AppCompatActivity {
                     // When the boom-button corresponding this builder is clicked.
                     Intent intent = new Intent(HomeActivity.this, WriteActivity.class);
                     startActivity(intent);
-                    Toast.makeText(HomeActivity.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
+
                 }
-            }).normalText("Write").normalImageRes(R.drawable.ic_brush_black_24dp);
+            }).normalText("Write").normalImageRes(R.drawable.ic_brush_black_24dp).textSize(15);
             boomMenuButton.addBuilder(builder);
+
+        builder = new TextOutsideCircleButton.Builder().listener(new OnBMClickListener() {
+            @Override
+            public void onBoomButtonClick(int index) {
+                // When the boom-button corresponding this builder is clicked.
+                yourDiary();
+
+            }
+        }).normalText("Your Diary").normalImageRes(R.drawable.ic_blur_on_black_24dp).textSize(15);
+        boomMenuButton.addBuilder(builder);
+
+        builder = new TextOutsideCircleButton.Builder().listener(new OnBMClickListener() {
+            @Override
+            public void onBoomButtonClick(int index) {
+                // When the boom-button corresponding this builder is clicked.
+                initItem();
+
+            }
+        }).normalText("All Diary").normalImageRes(R.drawable.ic_all_out_black_24dp).textSize(15);
+        boomMenuButton.addBuilder(builder);
 
 
         builder = new TextOutsideCircleButton.Builder().listener(new OnBMClickListener() {
@@ -142,9 +171,9 @@ public class HomeActivity extends AppCompatActivity {
                 container.setVisibility(View.VISIBLE);
                 resetC.setVisibility(View.VISIBLE);
                 infoC.setVisibility(View.INVISIBLE);
-                Toast.makeText(HomeActivity.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
+
             }
-        }).normalText("Reset Password").normalImageRes(R.drawable.ic_fingerprint_black_24dp);
+        }).normalText("Reset Password").normalImageRes(R.drawable.ic_fingerprint_black_24dp).textSize(15);
         boomMenuButton.addBuilder(builder);
 
 
@@ -154,9 +183,9 @@ public class HomeActivity extends AppCompatActivity {
                 // When the boom-button corresponding this builder is clicked.
                 Intent intent = new Intent(HomeActivity.this, History.class);
                 startActivity(intent);
-                Toast.makeText(HomeActivity.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
+
             }
-        }).normalText("History").normalImageRes(R.drawable.ic_history_black_24dp);
+        }).normalText("History").normalImageRes(R.drawable.ic_history_black_24dp).textSize(15);
         boomMenuButton.addBuilder(builder);
 
 
@@ -165,16 +194,16 @@ public class HomeActivity extends AppCompatActivity {
             public void onBoomButtonClick(int index) {
                 // When the boom-button corresponding this builder is clicked.
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(intent);
-                Toast.makeText(HomeActivity.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
+                checkLogin();
+
             }
-        }).normalText("Logout").normalImageRes(R.drawable.ic_out);
+        }).normalText("Logout").normalImageRes(R.drawable.ic_out).textSize(15);
         boomMenuButton.addBuilder(builder);
 
 
         //}
 
+        //initItem();
         ultimateRecyclerView=findViewById(R.id.Recycle_view);
         ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter=new UltimateRecycleV(this,items,users);
@@ -182,6 +211,60 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                initItem();
+                // ...
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("loss", "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        mDatabase.addValueEventListener(postListener);
+
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkLogin();
+        initItem();
+    }
+
+    private void checkLogin()
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user==null)
+        {
+            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
+    private void yourDiary()
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        ArrayList<Item> delItem=new ArrayList<>();
+        String uid=user.getUid();
+        if (uid!=null) {
+            for (Item i :
+                    items) {
+                if (!i.getuID().equals(uid))
+                    delItem.add(i);
+            }
+        }
+        for (Item i:
+             delItem) {
+            items.remove(i);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     private void getUserData() {
@@ -198,31 +281,39 @@ public class HomeActivity extends AppCompatActivity {
             // The user's ID, unique to the Firebase project. Do NOT use this value to
             // authenticate with your backend server, if you have one. Use
             // FirebaseUser.getIdToken() instead.
-           // String uid = user.getUid();
+            String uid = user.getUid();
 
-            //for (User u:users) {
-              //  if(u.getId().equals(uid))
-                //    name=u.getName();
-            //}
-            username.setText(name);
-            username.setText("Uranus");
-            email.setText(mail);
+            String userName="";
+            for (User u:users) {
+                if(u.getId().equals(uid))
+                    userName=u.getName();
+            }
 
-           /* FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
+
+
+
+            FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+
                 for (UserInfo profile : u.getProviderData()) {
                     // Id of the provider (ex: google.com)
                     String providerId = profile.getProviderId();
 
-                    // UID specific to the provider
-                    String uid = profile.getUid();
+
 
                     // Name, email address, and profile photo Url
                     String Name = profile.getDisplayName();
                     String Email = profile.getEmail();
                     Uri photoUrl = profile.getPhotoUrl();
+                    username.setText(userName);
+                    //username.setText("Uranus");
+                    email.setText(mail);
+                    if(photoUrl!=null) {
+                        Picasso.get().load(photoUrl).into(ava);
+                        Picasso.get().load(photoUrl).into(ava1);
+                    }
                 }
-            }*/
+
+
         }
     }
 
@@ -251,6 +342,12 @@ public class HomeActivity extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
+                                                    old.setText("");
+                                                    newP.setText("");
+                                                    Renew.setText("");
+                                                    container.setVisibility(View.INVISIBLE);
+                                                    resetC.setVisibility(View.INVISIBLE);
+                                                    Toast.makeText(HomeActivity.this, "ResetSuccess", Toast.LENGTH_SHORT).show();
                                                     Log.d("updated", "User password updated.");
                                                 }
                                             }
@@ -267,6 +364,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initItem() {
+       items.clear();
 
        mDatabase.child("Diary").addChildEventListener(new ChildEventListener() {
            @Override
@@ -342,5 +440,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
+
 
 }

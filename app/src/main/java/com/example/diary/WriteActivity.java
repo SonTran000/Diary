@@ -77,7 +77,7 @@ public class WriteActivity extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                post();finish();
+                post();addHistory();finish();
             }
         });
 

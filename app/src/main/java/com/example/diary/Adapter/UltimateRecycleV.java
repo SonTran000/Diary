@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,9 +17,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diary.EditActivity;
+import com.example.diary.HomeActivity;
 import com.example.diary.Model.Item;
 import com.example.diary.Model.User;
 import com.example.diary.R;
+import com.google.firebase.database.FirebaseDatabase;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.ramotion.foldingcell.FoldingCell;
 
@@ -40,6 +43,7 @@ class LoadingViewHolder extends RecyclerView.ViewHolder {
 class ItemViewHolder extends RecyclerView.ViewHolder {
     public TextView i1, i2,i3,i4,i5,i6;
     public FoldingCell FCell;
+    public Button del ;
 
     public ItemViewHolder(View itemView) {
         super(itemView);
@@ -50,6 +54,7 @@ class ItemViewHolder extends RecyclerView.ViewHolder {
         i6 = itemView.findViewById(R.id.displayTime);
         i4 = itemView.findViewById(R.id.dayUp);
         FCell= itemView.findViewById(R.id.folding_cell);
+        del= itemView.findViewById(R.id.deleteB);
     }
 }
 
@@ -127,7 +132,7 @@ public class UltimateRecycleV extends RecyclerView.Adapter {
             }
             long diff = today.getTime() - diaryTime.getTime();
 
-            viewHolder.i4.setText(diff/ 1000 / 60 / 60 / 24+" days ago! by "+userName);
+            viewHolder.i4.setText(diff/ 1000 / 60 / 60 / 24-30 +" days ago! by "+userName);
             viewHolder.i3.setText(time.substring(11));
             viewHolder.i6.setText(time.substring(11));
             viewHolder.FCell.setBackgroundColor(Color.parseColor(items.get(position).getColor()));
@@ -144,10 +149,25 @@ public class UltimateRecycleV extends RecyclerView.Adapter {
                     return true;
                 }
             });
+            viewHolder.del.setVisibility(View.VISIBLE);
+            final String id=items.get(position).getId();
+
+            viewHolder.del.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    deleteItem(id);
+                }
+            });
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);
         }
+    }
+
+    private void deleteItem(String id)
+    {
+        FirebaseDatabase.getInstance().getReference().child("Diary").child(id).removeValue();
+
     }
 
     private void Editing(String key,String key1,String key2) {

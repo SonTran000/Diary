@@ -58,6 +58,9 @@ public class EditActivity extends AppCompatActivity {
         oldTitle=intent.getStringExtra("title");
         oldContent=intent.getStringExtra("content");
 
+        title.setText(oldTitle);
+        content.setText(oldContent);
+
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -18,6 +18,15 @@
         android:textSize="15dp"
 
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roung_bg"
+        android:text="delete"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/folding_cell"
+        android:id="@+id/deleteB"
+        android:visibility="invisible"/>
 
     <com.ramotion.foldingcell.FoldingCell
         android:layout_below="@+id/dayUp"

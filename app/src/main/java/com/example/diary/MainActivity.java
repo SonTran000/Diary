@@ -173,8 +173,8 @@ public class MainActivity extends AppCompatActivity {
             FirebaseUser user = mAuth.getCurrentUser();
             updateUI(user);
         }
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(MainActivity.this, History.class);
+        //startActivity(intent);
     }
 
     private void loginUser() {

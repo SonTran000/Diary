@@ -1,6 +1,10 @@
 package com.example.diary;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +18,9 @@ import com.example.diary.Adapter.UltimateRecycleV;
 import com.example.diary.Model.HistoryItem;
 import com.example.diary.Model.Item;
 import com.example.diary.Model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +30,7 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.SimpleCircleButton;
 import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -32,6 +40,7 @@ public class History extends AppCompatActivity {
     ArrayList<User> users=new ArrayList<>();
     HistoryRecycleView adapter;
     BoomMenuButton boomMenuButton;
+    ImageView ava,ava1;
     private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +49,8 @@ public class History extends AppCompatActivity {
         initItem();
         boomMenuButton=findViewById(R.id.userButton);
 
+
+
         for (int i = 0; i < boomMenuButton.getPiecePlaceEnum().pieceNumber(); i++) {
             TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
                     .listener(new OnBMClickListener() {
@@ -47,9 +58,9 @@ public class History extends AppCompatActivity {
                         public void onBoomButtonClick(int index) {
                             // When the boom-button corresponding this builder is clicked.
                             finish();
-                            Toast.makeText(History.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
+
                         }
-                    }).normalImageRes(R.drawable.ic_assignment_return_black_24dp).normalText("Return");
+                    }).normalImageRes(R.drawable.ic_assignment_return_black_24dp).normalText("Return").textSize(15);
             boomMenuButton.addBuilder(builder);
         }
 
@@ -57,6 +68,26 @@ public class History extends AppCompatActivity {
         ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter=new HistoryRecycleView(this,items,users);
         ultimateRecyclerView.setAdapter(adapter);
+
+        ava=findViewById(R.id.mainProfile);
+        ava1=findViewById(R.id.profile);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+
+            for (UserInfo profile : user.getProviderData()) {
+                // Id of the provider (ex: google.com)
+                String providerId = profile.getProviderId();
+                // Name, email address, and profile photo Url
+
+                Uri photoUrl = profile.getPhotoUrl();
+                if(photoUrl!=null) {
+                    Picasso.get().load(photoUrl).into(ava);
+                    Picasso.get().load(photoUrl).into(ava1);
+                }
+            }
+
+
+        }
 
 
 

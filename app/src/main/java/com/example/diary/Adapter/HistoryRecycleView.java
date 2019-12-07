@@ -74,7 +74,7 @@ public class HistoryRecycleView extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
-            HistoryItem item = items.get(position);
+
             final ItemViewHolder viewHolder = (ItemViewHolder) holder;
 
             String userName="";
@@ -99,8 +99,8 @@ public class HistoryRecycleView extends RecyclerView.Adapter{
                 Log.e("TEST", "Exception", e);
             }
             long diff = today.getTime() - diaryTime.getTime();
-            viewHolder.i2.setText(diff/ 1000 / 60 / 60 / 24+" days ago! by "+userName);
-            viewHolder.i5.setText(diff/ 1000 / 60 / 60 / 24+" days ago! by "+userName);
+            viewHolder.i2.setText(diff/ 1000 / 60 / 60 / 24-30+" days ago! by "+userName);
+            viewHolder.i5.setText(diff/ 1000 / 60 / 60 / 24-30+" days ago! by "+userName);
             viewHolder.i3.setText(time.substring(11));
             viewHolder.i6.setText(time.substring(11));
 

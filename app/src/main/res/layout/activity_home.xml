@@ -148,6 +148,6 @@
         app:bmb_buttonEnum="textOutsideCircle"
         app:bmb_boomEnum="boomHorizontalThrow_1"
         app:bmb_buttonPlaceAlignmentEnum="buttonPlaceAlignment_center"
-        app:bmb_piecePlaceEnum="piecePlace_dot_5_4"
-        app:bmb_buttonPlaceEnum="buttonPlace_sc_5_4"/>
+        app:bmb_piecePlaceEnum="piecePlace_dot_7_4"
+        app:bmb_buttonPlaceEnum="buttonPlace_sc_7_4"/>
 </RelativeLayout>
