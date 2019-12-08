@@ -173,10 +173,10 @@ public class MainActivity extends AppCompatActivity {
             FirebaseUser user = mAuth.getCurrentUser();
             updateUI(user);
         }
-        //Intent intent = new Intent(MainActivity.this, History.class);
-        //startActivity(intent);
+
     }
 
+    //Login with email and password
     private void loginUser() {
         String email=inEMail.getText().toString();
         String password=inPass.getText().toString();
@@ -231,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    //Add user to database when Register
     private void addToDatabase(FirebaseUser u) {
         final DatabaseReference addUser=FirebaseDatabase.getInstance().getReference().child("User").child(u.getUid());
         final FirebaseUser user=u;
@@ -306,27 +307,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) {
-        /*if (user != null) {
-            String name = user.getDisplayName();
-            String email = user.getEmail();
-            String photo = String.valueOf(user.getPhotoUrl());
-
-            text.append("Info : \n");
-            text.append(name + "\n");
-            text.append(email);
-            //Picasso.get(MainActivity.this).load(photo).into(image);
-            Picasso.get().load(photo).into(image);
-            btn_logout.setVisibility(View.VISIBLE);
-            btn_login.setVisibility(View.INVISIBLE);
-        } else {
-            text.setText("Firebase Login \n");
-            //Picasso.with(MainActivity.this).load(R.drawable.ic_firebase_logo).into(image);
-            Picasso.get().load(R.drawable.firebase_logo).into(image);
-            btn_logout.setVisibility(View.INVISIBLE);
-            btn_login.setVisibility(View.VISIBLE);
-        }*/
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        startActivity(intent);
+        if (user!=null) {
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void Logout() {

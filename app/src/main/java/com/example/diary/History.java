@@ -50,6 +50,7 @@ public class History extends AppCompatActivity {
         boomMenuButton=findViewById(R.id.userButton);
 
 
+        //Set BoomActionButton
 
         for (int i = 0; i < boomMenuButton.getPiecePlaceEnum().pieceNumber(); i++) {
             TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
@@ -64,6 +65,7 @@ public class History extends AppCompatActivity {
             boomMenuButton.addBuilder(builder);
         }
 
+        //Set RecycleView
         ultimateRecyclerView=findViewById(R.id.Recycle_view);
         ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter=new HistoryRecycleView(this,items,users);
@@ -75,9 +77,7 @@ public class History extends AppCompatActivity {
         if (user != null) {
 
             for (UserInfo profile : user.getProviderData()) {
-                // Id of the provider (ex: google.com)
-                String providerId = profile.getProviderId();
-                // Name, email address, and profile photo Url
+                //Set Avatar
 
                 Uri photoUrl = profile.getPhotoUrl();
                 if(photoUrl!=null) {

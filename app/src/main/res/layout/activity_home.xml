@@ -55,6 +55,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="10dp"
                 android:layout_below="@id/tv1"
+                android:backgroundTint="#65DD4E"
                 android:layout_marginTop="15dp"
                 android:id="@+id/currentUsername"
                 android:background="@drawable/roung_bg"/>
@@ -63,10 +64,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:textSize="25dp"
+
                 android:id="@+id/tv2"
+                android:hint="Enter username here"
                 android:layout_below="@id/currentUsername"
                 android:text="Email:"/>
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -74,12 +77,14 @@
                 android:layout_below="@id/tv2"
                 android:layout_marginTop="15dp"
                 android:id="@+id/currentEmail"
+                android:backgroundTint="#65DD4E"
                 android:background="@drawable/roung_bg"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/changeInfo"
                 android:text="Change!!"
+                android:backgroundTint="#65DD4E"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"

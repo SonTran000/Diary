@@ -120,10 +120,11 @@ public class UltimateRecycleV extends RecyclerView.Adapter {
             viewHolder.i5.setText(String.valueOf(items.get(position).getTitle()));
             String time=Daynum(items.get(position).getTime());
 
-            //int d = Integer.parseInt(time.substring(0,1));
+            //Calculate the time different
+
             Date today =new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy kk:mm");
-            //String td = formatter.format(today).substring(0,1);
+
             Date diaryTime=null;
             try {
             diaryTime=formatter.parse(time);
@@ -133,8 +134,8 @@ public class UltimateRecycleV extends RecyclerView.Adapter {
             long diff = today.getTime() - diaryTime.getTime();
 
             viewHolder.i4.setText(diff/ 1000 / 60 / 60 / 24-30 +" days ago! by "+userName);
-            viewHolder.i3.setText(time.substring(11));
-            viewHolder.i6.setText(time.substring(11));
+            viewHolder.i3.setText(time.substring(11));//get only hour
+            viewHolder.i6.setText(time.substring(11));//get only hour
             viewHolder.FCell.setBackgroundColor(Color.parseColor(items.get(position).getColor()));
             viewHolder.FCell.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -170,6 +171,7 @@ public class UltimateRecycleV extends RecyclerView.Adapter {
 
     }
 
+    //Start Editing activity
     private void Editing(String key,String key1,String key2) {
         Intent intent = new Intent(context, EditActivity.class);
         intent.putExtra("key",key);

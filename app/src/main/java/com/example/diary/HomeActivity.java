@@ -63,7 +63,8 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     String DiaryID;
     ImageView ava,ava1;
-    EditText username,email,old,newP,Renew;
+    EditText username,old,newP,Renew;
+    TextView email;
     FrameLayout container;
     Button cancle,cancleReset,ResetOK,resetInfo;
     RelativeLayout infoC,resetC;
@@ -119,6 +120,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+        //Set BoomActionButton
             TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
                     .listener(new OnBMClickListener() {
                         @Override
@@ -202,9 +204,9 @@ public class HomeActivity extends AppCompatActivity {
         boomMenuButton.addBuilder(builder);
 
 
-        //}
 
-        //initItem();
+
+        //Set RecycleView
         ultimateRecyclerView=findViewById(R.id.Recycle_view);
         ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter=new UltimateRecycleV(this,items,users);
@@ -294,23 +296,16 @@ public class HomeActivity extends AppCompatActivity {
     private void getUserData() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            // Name, email address, and profile photo Url
-            String name = user.getDisplayName();
+
+
             String mail = user.getEmail();
 
-            //Uri photoUrl = user.getPhotoUrl();
 
-            // Check if user's email is verified
-           //boolean emailVerified = user.isEmailVerified();
-
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getIdToken() instead.
             String uid = user.getUid();
 
             String userName="";
             for (User u:users) {
-               // if(u.getId().equals(uid))
+                if(u.getId().equals(uid))
                     userName=u.getName();
             }
 
@@ -320,17 +315,9 @@ public class HomeActivity extends AppCompatActivity {
             FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
 
                 for (UserInfo profile : u.getProviderData()) {
-                    // Id of the provider (ex: google.com)
-                    String providerId = profile.getProviderId();
 
-
-
-                    // Name, email address, and profile photo Url
-                    String Name = profile.getDisplayName();
-                    String Email = profile.getEmail();
                     Uri photoUrl = profile.getPhotoUrl();
-                    username.setText(name);
-                    //username.setText("Uranus");
+                    username.setText(userName);
                     email.setText(mail);
                     if(photoUrl!=null) {
                         Picasso.get().load(photoUrl).into(ava);
@@ -352,12 +339,12 @@ public class HomeActivity extends AppCompatActivity {
                 String oldPassword = old.getText().toString();
 
                 // Get auth credentials from the user for re-authentication. The example below shows
-// email and password credentials but there are multiple possible providers,
-// such as GoogleAuthProvider or FacebookAuthProvider.
+                // email and password credentials but there are multiple possible providers,
+                // such as GoogleAuthProvider or FacebookAuthProvider.
                 AuthCredential credential = EmailAuthProvider
                         .getCredential(user.getEmail(), oldPassword);
 
-// Prompt the user to re-provide their sign-in credentials
+                // Prompt the user to re-provide their sign-in credentials
                 user.reauthenticate(credential)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override

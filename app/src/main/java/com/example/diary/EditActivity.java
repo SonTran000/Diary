@@ -90,6 +90,7 @@ public class EditActivity extends AppCompatActivity {
         bnv.setOnNavigationItemSelectedListener(navL);
     }
 
+    //Add History to database
     private void addHistory() {
         String changedStatus="";
         if(!oldTitle.equals(title.getText().toString()))
@@ -105,7 +106,7 @@ public class EditActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        //String g=d.getTime();
+
         FirebaseAuth mAuth= FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String uID=user.getUid();
@@ -126,6 +127,7 @@ public class EditActivity extends AppCompatActivity {
 
     }
 
+    //Update diary  to database
     private void post() {
 
         String GTime=date.getDayOfMonth()+"-"+date.getMonth()+"-"+date.getYear()+" "+time.getHour()+":"+time.getMinute();
@@ -136,7 +138,7 @@ public class EditActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        //String g=d.getTime();
+
         FirebaseAuth mAuth= FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String uID=user.getUid();

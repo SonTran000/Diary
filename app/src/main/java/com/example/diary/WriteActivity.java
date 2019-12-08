@@ -86,7 +86,7 @@ public class WriteActivity extends AppCompatActivity {
         BottomNavigationView bnv= findViewById(R.id.nav_view);
         bnv.setOnNavigationItemSelectedListener(navL);
     }
-
+//Add diary to database
     private void post() {
 
         String GTime=date.getDayOfMonth()+"-"+date.getMonth()+"-"+date.getYear()+" "+time.getHour()+":"+time.getMinute();
@@ -119,7 +119,7 @@ public class WriteActivity extends AppCompatActivity {
 
 
     }
-
+//Add history to database
     private void addHistory() {
 
 

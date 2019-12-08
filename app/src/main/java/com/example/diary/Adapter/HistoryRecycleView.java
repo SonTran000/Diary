@@ -86,11 +86,10 @@ public class HistoryRecycleView extends RecyclerView.Adapter{
             viewHolder.i1.setText(items.get(position).getChanged());
 
             String time=Daynum(items.get(position).getTime());
-            //int d = Integer.parseInt(time.substring(0,1));
+            //Calculate time different
             Date today =new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy kk:mm");
-            //String td = formatter.format(today).substring(0,1);
-            //
+
             viewHolder.i4.setText(time);
             Date diaryTime=null;
             try {
